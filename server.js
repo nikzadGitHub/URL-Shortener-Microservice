@@ -40,12 +40,13 @@ app.post('/api/shorturl', function(req, res) {
 
   let url = req.body.url;
 
-  let outPut = { error: 'invalid url' };
-
+  if (!url.includes('http')) {
+    res.json({ error: 'invalid url' });
+  }
   dns.lookup(url, function onLookup(err) {
     if ( ! err == null) {
       console.log('unverified URL')
-      res.json(outPut);
+      res.json({ error: 'invalid url' });
     } 
   });
   console.log('verified URL');
@@ -63,7 +64,7 @@ app.post('/api/shorturl', function(req, res) {
   });
 
   // Continue, buling next route.
-  outPut = {"original_url":url,"short_url":shortUrl}
+  let outPut = {"original_url":url,"short_url":shortUrl}
 
   res.json(outPut);
 });
