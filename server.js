@@ -40,7 +40,7 @@ app.post('/api/shorturl', function(req, res) {
 
   let url = req.body.url;
 
-  let outPut = { error : "Invalid Date" };
+  let outPut = { error: 'invalid url' };
 
   dns.lookup(url, function onLookup(err) {
     if ( ! err == null) {
